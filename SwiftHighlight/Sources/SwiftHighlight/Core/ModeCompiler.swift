@@ -7,6 +7,8 @@ public class ModeCompiler {
 
     private var language: Language
     private let caseInsensitive: Bool
+    /// Cache of compiled modes to handle cycles
+    private var compiledModeCache: [ObjectIdentifier: CompiledMode] = [:]
 
     public init(language: Language) {
         self.language = language
@@ -26,7 +28,8 @@ public class ModeCompiler {
         compiled.rawDefinition = language
 
         // Apply compiler extensions to the source mode
-        applyExtensions(to: language)
+        var visited = Set<ObjectIdentifier>()
+        applyExtensions(to: language, visited: &visited)
 
         // Compile the root mode
         try compileMode(language, into: compiled, parent: nil, depth: 0)
@@ -35,8 +38,15 @@ public class ModeCompiler {
         return compiled
     }
 
-    /// Apply pre-compilation extensions
-    private func applyExtensions(to mode: Mode) {
+    /// Apply pre-compilation extensions with cycle detection
+    private func applyExtensions(to mode: Mode, visited: inout Set<ObjectIdentifier>) {
+        // Cycle detection: skip if already visited
+        let modeId = ObjectIdentifier(mode)
+        if visited.contains(modeId) {
+            return
+        }
+        visited.insert(modeId)
+
         // Extension 1: scopeClassName - migrate className to scope
         if let className = mode.className {
             mode.scope = .single(className)
@@ -66,7 +76,7 @@ public class ModeCompiler {
         if let contains = mode.contains {
             for ref in contains {
                 if case .mode(let childMode) = ref {
-                    applyExtensions(to: childMode)
+                    applyExtensions(to: childMode, visited: &visited)
                 }
             }
         }
@@ -74,18 +84,38 @@ public class ModeCompiler {
         // Apply to variants
         if let variants = mode.variants {
             for variant in variants {
-                applyExtensions(to: variant)
+                applyExtensions(to: variant, visited: &visited)
             }
         }
 
         // Apply to starts
         if let starts = mode.starts {
-            applyExtensions(to: starts)
+            applyExtensions(to: starts, visited: &visited)
         }
     }
 
     /// Compile a mode definition
     private func compileMode(_ mode: Mode, into compiled: CompiledMode, parent: CompiledMode?, depth: Int) throws {
+        // Check for cycles - if we've already started compiling this mode, return early
+        let modeId = ObjectIdentifier(mode)
+        if let cached = compiledModeCache[modeId] {
+            // Copy the cached compiled mode's key properties into the target
+            compiled.beginRe = cached.beginRe
+            compiled.endRe = cached.endRe
+            compiled.illegalRe = cached.illegalRe
+            compiled.scope = cached.scope
+            compiled.keywords = cached.keywords
+            compiled.contains = cached.contains
+            compiled.terminatorEnd = cached.terminatorEnd
+            compiled.subLanguage = cached.subLanguage
+            compiled.parent = parent
+            compiled.depth = depth
+            return
+        }
+
+        // Mark this mode as being compiled to detect cycles
+        compiledModeCache[modeId] = compiled
+
         compiled.parent = parent
         compiled.depth = depth
 
