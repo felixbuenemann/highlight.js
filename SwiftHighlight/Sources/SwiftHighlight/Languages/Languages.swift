@@ -24,6 +24,7 @@ public enum Languages {
         hljs.registerLanguage("avrasm", definition: avrasmLanguage)
         hljs.registerLanguage("awk", definition: awkLanguage)
         hljs.registerLanguage("axapta", definition: axaptaLanguage)
+        hljs.registerLanguage("bash", definition: bashLanguage)
         hljs.registerLanguage("basic", definition: basicLanguage)
         hljs.registerLanguage("bnf", definition: bnfLanguage)
         hljs.registerLanguage("brainfuck", definition: brainfuckLanguage)
@@ -42,6 +43,7 @@ public enum Languages {
         hljs.registerLanguage("crystal", definition: crystalLanguage)
         hljs.registerLanguage("csharp", definition: csharpLanguage)
         hljs.registerLanguage("csp", definition: cspLanguage)
+        hljs.registerLanguage("css", definition: cssLanguage)
         hljs.registerLanguage("d", definition: dLanguage)
         hljs.registerLanguage("dart", definition: dartLanguage)
         hljs.registerLanguage("delphi", definition: delphiLanguage)
@@ -83,6 +85,7 @@ public enum Languages {
         hljs.registerLanguage("inform7", definition: inform7Language)
         hljs.registerLanguage("irpf90", definition: irpf90Language)
         hljs.registerLanguage("isbl", definition: isblLanguage)
+        hljs.registerLanguage("java", definition: javaLanguage)
         hljs.registerLanguage("javascript", definition: javascriptLanguage)
         hljs.registerLanguage("jboss-cli", definition: jboss_cliLanguage)
         hljs.registerLanguage("json", definition: jsonLanguage)
@@ -144,6 +147,7 @@ public enum Languages {
         hljs.registerLanguage("roboconf", definition: roboconfLanguage)
         hljs.registerLanguage("routeros", definition: routerosLanguage)
         hljs.registerLanguage("rsl", definition: rslLanguage)
+        hljs.registerLanguage("ruby", definition: rubyLanguage)
         hljs.registerLanguage("ruleslanguage", definition: ruleslanguageLanguage)
         hljs.registerLanguage("rust", definition: rustLanguage)
         hljs.registerLanguage("sas", definition: sasLanguage)
@@ -160,12 +164,14 @@ public enum Languages {
         hljs.registerLanguage("stata", definition: stataLanguage)
         hljs.registerLanguage("step21", definition: step21Language)
         hljs.registerLanguage("subunit", definition: subunitLanguage)
+        hljs.registerLanguage("swift", definition: swiftLanguage)
         hljs.registerLanguage("taggerscript", definition: taggerscriptLanguage)
         hljs.registerLanguage("tap", definition: tapLanguage)
         hljs.registerLanguage("tcl", definition: tclLanguage)
         hljs.registerLanguage("thrift", definition: thriftLanguage)
         hljs.registerLanguage("tp", definition: tpLanguage)
         hljs.registerLanguage("twig", definition: twigLanguage)
+        hljs.registerLanguage("typescript", definition: typescriptLanguage)
         hljs.registerLanguage("vala", definition: valaLanguage)
         hljs.registerLanguage("vbscript", definition: vbscriptLanguage)
         hljs.registerLanguage("vbscript-html", definition: vbscript_htmlLanguage)
@@ -182,36 +188,37 @@ public enum Languages {
     }
 
     /// Get the count of available languages
-    public static var count: Int { 172 }
+    public static var count: Int { 178 }
 
     /// List of all available language names
     public static var all: [String] {
         [
             "1c", "abnf", "accesslog", "actionscript", "ada", "angelscript",
             "apache", "applescript", "arcade", "armasm", "asciidoc", "aspectj",
-            "autohotkey", "autoit", "avrasm", "awk", "axapta", "basic", "bnf",
+            "autohotkey", "autoit", "avrasm", "awk", "axapta", "bash", "basic", "bnf",
             "brainfuck", "c", "cal", "capnproto", "ceylon", "clean", "clojure",
             "clojure-repl", "cmake", "coq", "cos", "cpp", "crmsh", "crystal",
-            "csharp", "csp", "d", "dart", "delphi", "diff", "django", "dns",
+            "csharp", "csp", "css", "d", "dart", "delphi", "diff", "django", "dns",
             "dockerfile", "dos", "dsconfig", "dts", "dust", "ebnf", "elixir",
             "elm", "erb", "erlang", "erlang-repl", "excel", "fix", "flix",
             "fortran", "gams", "gauss", "gcode", "gherkin", "glsl", "gml", "go",
             "golo", "gradle", "graphql", "groovy", "handlebars", "haskell",
-            "haxe", "hsp", "http", "hy", "inform7", "irpf90", "isbl", "javascript",
-            "jboss-cli", "json", "julia", "julia-repl", "lasso", "latex", "ldif",
-            "leaf", "lisp", "livecodeserver", "livescript", "lsl", "lua",
-            "makefile", "markdown", "matlab", "maxima", "mel", "mercury",
+            "haxe", "hsp", "http", "hy", "inform7", "irpf90", "isbl", "java",
+            "javascript", "jboss-cli", "json", "julia", "julia-repl", "lasso",
+            "latex", "ldif", "leaf", "lisp", "livecodeserver", "livescript", "lsl",
+            "lua", "makefile", "markdown", "matlab", "maxima", "mel", "mercury",
             "mipsasm", "mizar", "mojolicious", "monkey", "moonscript", "n1ql",
             "nestedtext", "nginx", "nim", "nix", "node-repl", "nsis", "objectivec",
             "ocaml", "openscad", "oxygene", "parser3", "perl", "pf", "pgsql",
             "php", "php-template", "plaintext", "pony", "processing", "profile",
             "prolog", "properties", "protobuf", "puppet", "purebasic", "python",
             "python-repl", "q", "qml", "r", "reasonml", "rib", "roboconf",
-            "routeros", "rsl", "ruleslanguage", "rust", "sas", "scala", "scheme",
-            "scilab", "shell", "smali", "smalltalk", "sml", "sqf", "sql", "stan",
-            "stata", "step21", "subunit", "taggerscript", "tap", "tcl", "thrift",
-            "tp", "twig", "vala", "vbscript", "vbscript-html", "verilog", "vhdl",
-            "vim", "wren", "x86asm", "xl", "xml", "xquery", "yaml", "zephir"
+            "routeros", "rsl", "ruby", "ruleslanguage", "rust", "sas", "scala",
+            "scheme", "scilab", "shell", "smali", "smalltalk", "sml", "sqf", "sql",
+            "stan", "stata", "step21", "subunit", "swift", "taggerscript", "tap",
+            "tcl", "thrift", "tp", "twig", "typescript", "vala", "vbscript",
+            "vbscript-html", "verilog", "vhdl", "vim", "wren", "x86asm", "xl",
+            "xml", "xquery", "yaml", "zephir"
         ]
     }
 }
