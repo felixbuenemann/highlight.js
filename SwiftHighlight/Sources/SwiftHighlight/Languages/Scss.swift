@@ -1,166 +1,182 @@
-// Manually ported from highlight.js
+// Auto-generated from highlight.js
 // Language: scss
 
 import Foundation
 
-/// SCSS language definition - CSS preprocessor with Sass syntax
+/// scss language definition
 public func scssLanguage(_ hljs: HighlightJS) -> Language {
     let lang = Language()
     lang.name = "SCSS"
-    lang.aliases = ["scss"]
+
     lang.caseInsensitive = true
     lang.illegal = .regex("[=/|']")
-
-    // SCSS variables
-    let VARIABLE = Mode()
-    VARIABLE.scope = .single("variable")
-    VARIABLE.begin = .regex("\\$[a-zA-Z-][a-zA-Z0-9_-]*")
-    VARIABLE.relevance = 0
-
-    // Comments
-    let LINE_COMMENT = CommonModes.C_LINE_COMMENT_MODE()
-    let BLOCK_COMMENT = CommonModes.C_BLOCK_COMMENT_MODE()
-
-    // Numbers with units
-    let CSS_NUMBER = Mode()
-    CSS_NUMBER.scope = .single("number")
-    CSS_NUMBER.begin = .regex("[+-]?(\\d+(\\.\\d+)?|\\.\\d+)(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?")
-    CSS_NUMBER.relevance = 0
-
-    // ID selector
-    let SELECTOR_ID = Mode()
-    SELECTOR_ID.scope = .single("selector-id")
-    SELECTOR_ID.begin = .regex("#[A-Za-z0-9_-]+")
-    SELECTOR_ID.relevance = 0
-
-    // Class selector
-    let SELECTOR_CLASS = Mode()
-    SELECTOR_CLASS.scope = .single("selector-class")
-    SELECTOR_CLASS.begin = .regex("\\.[A-Za-z0-9_-]+")
-    SELECTOR_CLASS.relevance = 0
-
-    // Attribute selector
-    let SELECTOR_ATTR = Mode()
-    SELECTOR_ATTR.scope = .single("selector-attr")
-    SELECTOR_ATTR.begin = .regex("\\[")
-    SELECTOR_ATTR.end = .regex("\\]")
-    SELECTOR_ATTR.illegal = .regex("\\$")
-
-    // Tag selectors
-    let SELECTOR_TAG = Mode()
-    SELECTOR_TAG.scope = .single("selector-tag")
-    SELECTOR_TAG.begin = .regex("\\b(a|abbr|address|article|aside|audio|b|blockquote|body|button|canvas|caption|cite|code|dd|del|details|dfn|div|dl|dt|em|fieldset|figcaption|figure|footer|form|h[1-6]|header|hgroup|html|i|iframe|img|input|ins|kbd|label|legend|li|main|mark|menu|nav|object|ol|optgroup|option|p|picture|q|quote|samp|section|select|source|span|strong|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|tr|ul|var|video|defs|g|marker|mask|pattern|svg|switch|symbol|circle|ellipse|image|line|path|polygon|polyline|rect|text|use|textPath|tspan|foreignObject|clipPath)\\b")
-    SELECTOR_TAG.relevance = 0
-
-    // Pseudo classes
-    let SELECTOR_PSEUDO = Mode()
-    SELECTOR_PSEUDO.scope = .single("selector-pseudo")
-    SELECTOR_PSEUDO.begin = .regex(":(active|any-link|blank|checked|current|default|defined|dir|disabled|drop|empty|enabled|first|first-child|first-of-type|fullscreen|future|focus|focus-visible|focus-within|has|host|host-context|hover|indeterminate|in-range|invalid|is|lang|last-child|last-of-type|left|link|local-link|not|nth-child|nth-col|nth-last-child|nth-last-col|nth-last-of-type|nth-of-type|only-child|only-of-type|optional|out-of-range|past|placeholder-shown|read-only|read-write|required|right|root|scope|target|target-within|user-invalid|valid|visited|where)")
-
-    // Pseudo elements
-    let SELECTOR_PSEUDO_ELEMENT = Mode()
-    SELECTOR_PSEUDO_ELEMENT.scope = .single("selector-pseudo")
-    SELECTOR_PSEUDO_ELEMENT.begin = .regex(":(:)?(after|backdrop|before|cue|cue-region|first-letter|first-line|grammar-error|marker|part|placeholder|selection|slotted|spelling-error)")
-
-    // Property names
-    let PROPERTY = Mode()
-    PROPERTY.scope = .single("attribute")
-    PROPERTY.begin = .regex("[a-z-]+(?=\\s*:)")
-
-    // Hex colors
-    let HEX_COLOR = Mode()
-    HEX_COLOR.scope = .single("number")
-    HEX_COLOR.begin = .regex("#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b")
-
-    // Unicode range
-    let UNICODE_RANGE = Mode()
-    UNICODE_RANGE.scope = .single("number")
-    UNICODE_RANGE.begin = .regex("[Uu]\\+[0-9A-Fa-f][0-9A-Fa-f?]{0,4}(-[0-9A-Fa-f][0-9A-Fa-f]{0,4})?")
-
-    // Strings
-    let QUOTE_STRING = CommonModes.QUOTE_STRING_MODE()
-    let APOS_STRING = CommonModes.APOS_STRING_MODE()
-
-    // Important
-    let IMPORTANT = Mode()
-    IMPORTANT.scope = .single("meta")
-    IMPORTANT.begin = .regex("!important\\b")
-
-    // Function calls
-    let FUNCTION = Mode()
-    FUNCTION.scope = .single("built_in")
-    FUNCTION.begin = .regex("[\\w-]+(?=\\()")
-
-    // CSS variable
-    let CSS_VARIABLE = Mode()
-    CSS_VARIABLE.scope = .single("attr")
-    CSS_VARIABLE.begin = .regex("--[A-Za-z_][A-Za-z0-9_-]*")
-
-    // @ rules - page and font-face
-    let AT_PAGE_FONT = Mode()
-    AT_PAGE_FONT.begin = .regex("@(page|font-face)")
-    AT_PAGE_FONT.keywords = .grouped([
-        "keyword": "@page @font-face" as Any
-    ])
-
-    // @ rules - general
-    let AT_RULE = Mode()
-    AT_RULE.begin = .regex("@")
-    AT_RULE.end = .regex("[{;]")
-    AT_RULE.returnBegin = true
-    AT_RULE.keywords = .grouped([
-        "keyword": "and or not only" as Any,
-        "attribute": "any-hover any-pointer aspect-ratio color color-gamut color-index device-aspect-ratio device-height device-width display-mode forced-colors grid height hover inverted-colors monochrome orientation overflow-block overflow-inline pointer prefers-color-scheme prefers-contrast prefers-reduced-motion prefers-reduced-transparency resolution scan scripting update width min-width max-width min-height max-height" as Any
-    ])
-
-    // AT rule keyword
-    let AT_KEYWORD = Mode()
-    AT_KEYWORD.scope = .single("keyword")
-    AT_KEYWORD.begin = .regex("@[a-z-]+")
-
-    // CSS value keywords
-    let VALUE_KEYWORDS = Mode()
-    VALUE_KEYWORDS.begin = .regex("\\b(whitespace|wait|w-resize|visible|vertical-text|vertical-ideographic|uppercase|upper-roman|upper-alpha|underline|transparent|top|thin|thick|text|text-top|text-bottom|tb-rl|table-header-group|table-footer-group|sw-resize|super|strict|static|square|solid|small-caps|separate|se-resize|scroll|s-resize|rtl|row-resize|ridge|right|repeat|repeat-y|repeat-x|relative|progress|pointer|overline|outside|outset|oblique|nowrap|not-allowed|normal|none|nw-resize|no-repeat|no-drop|newspaper|ne-resize|n-resize|move|middle|medium|ltr|lr-tb|lowercase|lower-roman|lower-alpha|loose|list-item|line|line-through|line-edge|lighter|left|keep-all|justify|italic|inter-word|inter-ideograph|inside|inset|inline|inline-block|inherit|inactive|ideograph-space|ideograph-parenthesis|ideograph-numeric|ideograph-alpha|horizontal|hidden|help|hand|groove|fixed|ellipsis|e-resize|double|dotted|distribute|distribute-space|distribute-letter|distribute-all-lines|disc|disabled|default|decimal|dashed|crosshair|collapse|col-resize|circle|char|center|capitalize|break-word|break-all|bottom|both|bolder|bold|block|bidi-override|below|baseline|auto|always|all-scroll|absolute|table|table-cell)\\b")
-
-    // Value block (after :)
-    let VALUE_BLOCK = Mode()
-    VALUE_BLOCK.begin = .regex(":")
-    VALUE_BLOCK.end = .regex("[;}{]")
-    VALUE_BLOCK.relevance = 0
-    VALUE_BLOCK.contains = [
-        .mode(BLOCK_COMMENT),
-        .mode(VARIABLE),
-        .mode(HEX_COLOR),
-        .mode(CSS_NUMBER),
-        .mode(UNICODE_RANGE),
-        .mode(QUOTE_STRING),
-        .mode(APOS_STRING),
-        .mode(IMPORTANT),
-        .mode(FUNCTION)
-    ]
-
     lang.contains = [
-        .mode(LINE_COMMENT),
-        .mode(BLOCK_COMMENT),
-        .mode(CSS_NUMBER),
-        .mode(SELECTOR_ID),
-        .mode(SELECTOR_CLASS),
-        .mode(SELECTOR_ATTR),
-        .mode(SELECTOR_TAG),
-        .mode(SELECTOR_PSEUDO_ELEMENT),
-        .mode(SELECTOR_PSEUDO),
-        .mode(VARIABLE),
-        .mode(VALUE_BLOCK),
-        .mode(CSS_VARIABLE),
-        .mode(PROPERTY),
-        .mode(VALUE_KEYWORDS),
-        .mode(AT_PAGE_FONT),
-        .mode(AT_KEYWORD),
-        .mode(AT_RULE),
-        .mode(QUOTE_STRING),
-        .mode(APOS_STRING),
-        .mode(HEX_COLOR),
-        .mode(FUNCTION)
+        .mode(CommonModes.C_LINE_COMMENT_MODE()),
+        .mode(CommonModes.C_BLOCK_COMMENT_MODE()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("\\b\\d+(\\.\\d+)?(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?")
+            mode.scope = .single("number")
+            mode.relevance = 0
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("#[A-Za-z0-9_-]+")
+            mode.scope = .single("selector-id")
+            mode.relevance = 0
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("\\.[A-Za-z0-9_-]+")
+            mode.scope = .single("selector-class")
+            mode.relevance = 0
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("\\[")
+            mode.end = .regex("\\]")
+            mode.scope = .single("selector-attr")
+            mode.illegal = .regex("$")
+            mode.contains = [
+                .mode(CommonModes.APOS_STRING_MODE()),
+                .mode(CommonModes.QUOTE_STRING_MODE()),
+            ]
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("\\b(a|abbr|address|article|aside|audio|b|blockquote|body|button|canvas|caption|cite|code|dd|del|details|dfn|div|dl|dt|em|fieldset|figcaption|figure|footer|form|h1|h2|h3|h4|h5|h6|header|hgroup|html|i|iframe|img|input|ins|kbd|label|legend|li|main|mark|menu|nav|object|ol|optgroup|option|p|picture|q|quote|samp|section|select|source|span|strong|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|tr|ul|var|video|defs|g|marker|mask|pattern|svg|switch|symbol|feBlend|feColorMatrix|feComponentTransfer|feComposite|feConvolveMatrix|feDiffuseLighting|feDisplacementMap|feFlood|feGaussianBlur|feImage|feMerge|feMorphology|feOffset|feSpecularLighting|feTile|feTurbulence|linearGradient|radialGradient|stop|circle|ellipse|image|line|path|polygon|polyline|rect|text|use|textPath|tspan|foreignObject|clipPath)\\b")
+            mode.scope = .single("selector-tag")
+            mode.relevance = 0
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex(":(where|visited|valid|user-invalid|target-within|target|scope|root|right|required|read-write|read-only|placeholder-shown|past|out-of-range|optional|only-of-type|only-child|nth-of-type|nth-last-of-type|nth-last-col|nth-last-child|nth-col|nth-child|not|local-link|link|left|last-of-type|last-child|lang|is|invalid|indeterminate|in-range|hover|host-context|host|has|future|fullscreen|focus-within|focus-visible|focus|first-of-type|first-child|first|enabled|empty|drop|disabled|dir|defined|default|current|checked|blank|any-link|active)")
+            mode.scope = .single("selector-pseudo")
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex(":(:)?(spelling-error|slotted|selection|placeholder|part|marker|grammar-error|first-line|first-letter|cue-region|cue|before|backdrop|after)")
+            mode.scope = .single("selector-pseudo")
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("(\\$[a-zA-Z-][a-zA-Z0-9_-]*)\\b")
+            mode.scope = .single("variable")
+            mode.relevance = 0
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("\\(")
+            mode.end = .regex("\\)")
+            mode.contains = [
+                /* circular ref: __ref_0 */ .mode(Mode()),
+            ]
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("--[A-Za-z_][A-Za-z0-9_-]*")
+            mode.scope = .single("attr")
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("\\b(zoom|z-index|writing-mode|word-wrap|word-spacing|word-break|will-change|width|widows|white-space|visibility|vertical-align|user-select|unicode-bidi|translate|transition-timing-function|transition-property|transition-duration|transition-delay|transition|transform-style|transform-origin|transform|touch-action|top|text-underline-position|text-transform|text-shadow|text-rendering|text-overflow|text-orientation|text-justify|text-indent|text-decoration-style|text-decoration-line|text-decoration-color|text-decoration|text-align-last|text-align|table-layout|tab-size|stroke-width|stroke-linejoin|stroke-linecap|stroke-dashoffset|stroke-dasharray|stroke|shape-outside|scroll-snap-type|scroll-snap-align|scroll-padding|scroll-margin|scroll-behavior|scale|row-gap|rotate|right|resize|quotes|position|pointer-events|place-self|place-items|place-content|perspective-origin|perspective|padding-top|padding-right|padding-left|padding-inline|padding-bottom|padding-block|padding|overflow-y|overflow-x|overflow-wrap|overflow-anchor|overflow|outline-width|outline-style|outline-offset|outline-color|outline|orphans|order|opacity|offset|object-position|object-fit|mix-blend-mode|min-width|min-inline-size|min-height|min-block-size|max-width|max-inline-size|max-height|max-block-size|mask-image|mask|margin-top|margin-right|margin-left|margin-inline|margin-bottom|margin-block|margin|list-style-type|list-style-position|list-style-image|list-style|line-height|letter-spacing|left|justify-self|justify-items|justify-content|isolation|inset|inline-size|image-rendering|hyphens|height|grid-template-rows|grid-template-columns|grid-template-areas|grid-template|grid-row|grid-gap|grid-column|grid-auto-rows|grid-auto-flow|grid-auto-columns|grid-area|grid|gap|font-weight|font-variant|font-style|font-stretch|font-size-adjust|font-size|font-kerning|font-feature-settings|font-family|font|float|flex-wrap|flex-shrink|flex-grow|flex-flow|flex-direction|flex-basis|flex|filter|fill-rule|fill-opacity|fill|empty-cells|display|direction|cursor|counter-reset|counter-increment|content|contain|columns|column-width|column-span|column-rule|column-gap|column-fill|column-count|color|clip-path|clip|clear|caret-color|caption-side|break-inside|break-before|break-after|box-sizing|box-shadow|box-decoration-break|bottom|border-width|border-top|border-style|border-spacing|border-right|border-radius|border-left|border-inline|border-image|border-color|border-collapse|border-bottom-width|border-bottom-style|border-bottom-right-radius|border-bottom-left-radius|border-bottom-color|border-bottom|border-block-start|border-block-end|border-block-color|border-block|border|block-size|background-size|background-repeat|background-position|background-origin|background-image|background-color|background-clip|background-blend-mode|background-attachment|background|backface-visibility|backdrop-filter|aspect-ratio|appearance|animation-timing-function|animation-play-state|animation-name|animation-iteration-count|animation-fill-mode|animation-duration|animation-direction|animation-delay|animation|all|alignment-baseline|align-self|align-items|align-content|accent-color)\\b")
+            mode.scope = .single("attribute")
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("\\b(whitespace|wait|w-resize|visible|vertical-text|vertical-ideographic|uppercase|upper-roman|upper-alpha|underline|transparent|top|thin|thick|text|text-top|text-bottom|tb-rl|table-header-group|table-footer-group|sw-resize|super|strict|static|square|solid|small-caps|separate|se-resize|scroll|s-resize|rtl|row-resize|ridge|right|repeat|repeat-y|repeat-x|relative|progress|pointer|overline|outside|outset|oblique|nowrap|not-allowed|normal|none|nw-resize|no-repeat|no-drop|newspaper|ne-resize|n-resize|move|middle|medium|ltr|lr-tb|lowercase|lower-roman|lower-alpha|loose|list-item|line|line-through|line-edge|lighter|left|keep-all|justify|italic|inter-word|inter-ideograph|inside|inset|inline|inline-block|inherit|inactive|ideograph-space|ideograph-parenthesis|ideograph-numeric|ideograph-alpha|horizontal|hidden|help|hand|groove|fixed|ellipsis|e-resize|double|dotted|distribute|distribute-space|distribute-letter|distribute-all-lines|disc|disabled|default|decimal|dashed|crosshair|collapse|col-resize|circle|char|center|capitalize|break-word|break-all|bottom|both|bolder|bold|block|bidi-override|below|baseline|auto|always|all-scroll|absolute|table|table-cell)\\b")
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex(":")
+            mode.end = .regex("[;}{]")
+            mode.relevance = 0
+            mode.contains = [
+                /* circular ref: __ref_1 */ .mode(Mode()),
+                /* circular ref: __ref_2 */ .mode(Mode()),
+                .mode({
+                    let mode = Mode()
+                    mode.begin = .regex("#(([0-9a-fA-F]{3,4})|(([0-9a-fA-F]{2}){3,4}))\\b")
+                    mode.scope = .single("number")
+                    return mode
+                }()),
+                /* circular ref: __ref_0 */ .mode(Mode()),
+                .mode({
+                    let mode = Mode()
+                    mode.begin = .regex("\\b[Uu]\\+[0-9A-Fa-f][0-9A-Fa-f?]{0,4}(-[0-9A-Fa-f][0-9A-Fa-f]{0,4})?")
+                    mode.scope = .single("number")
+                    return mode
+                }()),
+                /* circular ref: __ref_3 */ .mode(Mode()),
+                /* circular ref: __ref_4 */ .mode(Mode()),
+                .mode({
+                    let mode = Mode()
+                    mode.begin = .regex("!important")
+                    mode.scope = .single("meta")
+                    return mode
+                }()),
+                .mode({
+                    let mode = Mode()
+                    mode.begin = .regex("[\\w-]+(?=\\()")
+                    mode.scope = .single("built_in")
+                    return mode
+                }()),
+            ]
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("@(page|font-face)")
+            mode.keywords = .grouped([
+                "keyword": "@page @font-face" as Any,
+            ])
+
+            return mode
+        }()),
+        .mode({
+            let mode = Mode()
+            mode.begin = .regex("@")
+            mode.end = .regex("[{;]")
+            mode.keywords = .grouped([
+                "keyword": "and or not only" as Any,
+                "attribute": "width update scripting scan resolution prefers-reduced-transparency prefers-reduced-motion prefers-contrast prefers-color-scheme pointer overflow-inline overflow-block orientation monochrome min-width min-height max-width max-height inverted-colors hover height grid forced-colors display-mode device-width device-height device-aspect-ratio color-index color-gamut color aspect-ratio any-pointer any-hover" as Any,
+            ])
+
+            mode.returnBegin = true
+            mode.contains = [
+                .mode({
+                    let mode = Mode()
+                    mode.begin = .regex("@[a-z-]+")
+                    mode.scope = .single("keyword")
+                    return mode
+                }()),
+                .mode({
+                    let mode = Mode()
+                    mode.begin = .regex("[a-z-]+(?=:)")
+                    mode.scope = .single("attribute")
+                    return mode
+                }()),
+                /* circular ref: __ref_2 */ .mode(Mode()),
+                /* circular ref: __ref_3 */ .mode(Mode()),
+                /* circular ref: __ref_4 */ .mode(Mode()),
+                /* circular ref: __ref_5 */ .mode(Mode()),
+                /* circular ref: __ref_0 */ .mode(Mode()),
+            ]
+            return mode
+        }()),
+        /* circular ref: __ref_6 */ .mode(Mode()),
     ]
 
     return lang

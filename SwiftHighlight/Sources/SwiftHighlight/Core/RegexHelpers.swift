@@ -335,7 +335,6 @@ public class MultiRegex {
         }
 
         // Find which sub-pattern matched by checking which group is non-nil
-        var ruleIndex = 0
         var groupOffset = 1
 
         for (index, (pattern, metadata)) in regexes.enumerated() {

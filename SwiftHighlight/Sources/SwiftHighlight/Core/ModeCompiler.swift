@@ -218,7 +218,7 @@ public class ModeCompiler {
 
         // Add begin patterns from all contained modes
         if let contains = mode.contains {
-            for (index, contained) in contains.enumerated() {
+            for contained in contains {
                 if let beginRe = contained.beginRe {
                     let pattern = beginRe.pattern
                     matcher.addRule(pattern, rule: contained, type: .begin)

@@ -95,6 +95,7 @@ public enum Languages {
         hljs.registerLanguage("latex", definition: latexLanguage)
         hljs.registerLanguage("ldif", definition: ldifLanguage)
         hljs.registerLanguage("leaf", definition: leafLanguage)
+        hljs.registerLanguage("less", definition: lessLanguage)
         hljs.registerLanguage("lisp", definition: lispLanguage)
         hljs.registerLanguage("livecodeserver", definition: livecodeserverLanguage)
         hljs.registerLanguage("livescript", definition: livescriptLanguage)
@@ -154,6 +155,7 @@ public enum Languages {
         hljs.registerLanguage("scala", definition: scalaLanguage)
         hljs.registerLanguage("scheme", definition: schemeLanguage)
         hljs.registerLanguage("scilab", definition: scilabLanguage)
+        hljs.registerLanguage("scss", definition: scssLanguage)
         hljs.registerLanguage("shell", definition: shellLanguage)
         hljs.registerLanguage("smali", definition: smaliLanguage)
         hljs.registerLanguage("smalltalk", definition: smalltalkLanguage)
@@ -163,6 +165,7 @@ public enum Languages {
         hljs.registerLanguage("stan", definition: stanLanguage)
         hljs.registerLanguage("stata", definition: stataLanguage)
         hljs.registerLanguage("step21", definition: step21Language)
+        hljs.registerLanguage("stylus", definition: stylusLanguage)
         hljs.registerLanguage("subunit", definition: subunitLanguage)
         hljs.registerLanguage("swift", definition: swiftLanguage)
         hljs.registerLanguage("taggerscript", definition: taggerscriptLanguage)
@@ -188,7 +191,7 @@ public enum Languages {
     }
 
     /// Get the count of available languages
-    public static var count: Int { 178 }
+    public static var count: Int { 181 }
 
     /// List of all available language names
     public static var all: [String] {
@@ -205,7 +208,7 @@ public enum Languages {
             "golo", "gradle", "graphql", "groovy", "handlebars", "haskell",
             "haxe", "hsp", "http", "hy", "inform7", "irpf90", "isbl", "java",
             "javascript", "jboss-cli", "json", "julia", "julia-repl", "lasso",
-            "latex", "ldif", "leaf", "lisp", "livecodeserver", "livescript", "lsl",
+            "latex", "ldif", "leaf", "less", "lisp", "livecodeserver", "livescript", "lsl",
             "lua", "makefile", "markdown", "matlab", "maxima", "mel", "mercury",
             "mipsasm", "mizar", "mojolicious", "monkey", "moonscript", "n1ql",
             "nestedtext", "nginx", "nim", "nix", "node-repl", "nsis", "objectivec",
@@ -214,8 +217,8 @@ public enum Languages {
             "prolog", "properties", "protobuf", "puppet", "purebasic", "python",
             "python-repl", "q", "qml", "r", "reasonml", "rib", "roboconf",
             "routeros", "rsl", "ruby", "ruleslanguage", "rust", "sas", "scala",
-            "scheme", "scilab", "shell", "smali", "smalltalk", "sml", "sqf", "sql",
-            "stan", "stata", "step21", "subunit", "swift", "taggerscript", "tap",
+            "scheme", "scilab", "scss", "shell", "smali", "smalltalk", "sml", "sqf", "sql",
+            "stan", "stata", "step21", "stylus", "subunit", "swift", "taggerscript", "tap",
             "tcl", "thrift", "tp", "twig", "typescript", "vala", "vbscript",
             "vbscript-html", "verilog", "vhdl", "vim", "wren", "x86asm", "xl",
             "xml", "xquery", "yaml", "zephir"

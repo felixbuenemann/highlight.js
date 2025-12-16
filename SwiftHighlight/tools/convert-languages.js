@@ -33,6 +33,161 @@ const BUILTIN_MODES = new Set([
     'METHOD_GUARD'
 ]);
 
+// Create a mock for css-shared.js exports (used by less, scss, stylus)
+function createCssSharedMock(hljs) {
+    const HTML_TAGS = [
+        'a', 'abbr', 'address', 'article', 'aside', 'audio', 'b', 'blockquote', 'body', 'button',
+        'canvas', 'caption', 'cite', 'code', 'dd', 'del', 'details', 'dfn', 'div', 'dl', 'dt',
+        'em', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'header', 'hgroup', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'label', 'legend',
+        'li', 'main', 'mark', 'menu', 'nav', 'object', 'ol', 'optgroup', 'option', 'p', 'picture',
+        'q', 'quote', 'samp', 'section', 'select', 'source', 'span', 'strong', 'summary', 'sup',
+        'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'ul', 'var', 'video'
+    ];
+
+    const SVG_TAGS = [
+        'defs', 'g', 'marker', 'mask', 'pattern', 'svg', 'switch', 'symbol',
+        'feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix',
+        'feDiffuseLighting', 'feDisplacementMap', 'feFlood', 'feGaussianBlur', 'feImage',
+        'feMerge', 'feMorphology', 'feOffset', 'feSpecularLighting', 'feTile', 'feTurbulence',
+        'linearGradient', 'radialGradient', 'stop', 'circle', 'ellipse', 'image', 'line',
+        'path', 'polygon', 'polyline', 'rect', 'text', 'use', 'textPath', 'tspan',
+        'foreignObject', 'clipPath'
+    ];
+
+    const TAGS = [...HTML_TAGS, ...SVG_TAGS];
+
+    const MEDIA_FEATURES = [
+        'any-hover', 'any-pointer', 'aspect-ratio', 'color', 'color-gamut', 'color-index',
+        'device-aspect-ratio', 'device-height', 'device-width', 'display-mode', 'forced-colors',
+        'grid', 'height', 'hover', 'inverted-colors', 'monochrome', 'orientation', 'overflow-block',
+        'overflow-inline', 'pointer', 'prefers-color-scheme', 'prefers-contrast',
+        'prefers-reduced-motion', 'prefers-reduced-transparency', 'resolution', 'scan',
+        'scripting', 'update', 'width', 'min-width', 'max-width', 'min-height', 'max-height'
+    ].sort().reverse();
+
+    const PSEUDO_CLASSES = [
+        'active', 'any-link', 'blank', 'checked', 'current', 'default', 'defined', 'dir',
+        'disabled', 'drop', 'empty', 'enabled', 'first', 'first-child', 'first-of-type',
+        'fullscreen', 'future', 'focus', 'focus-visible', 'focus-within', 'has', 'host',
+        'host-context', 'hover', 'indeterminate', 'in-range', 'invalid', 'is', 'lang',
+        'last-child', 'last-of-type', 'left', 'link', 'local-link', 'not', 'nth-child',
+        'nth-col', 'nth-last-child', 'nth-last-col', 'nth-last-of-type', 'nth-of-type',
+        'only-child', 'only-of-type', 'optional', 'out-of-range', 'past', 'placeholder-shown',
+        'read-only', 'read-write', 'required', 'right', 'root', 'scope', 'target',
+        'target-within', 'user-invalid', 'valid', 'visited', 'where'
+    ].sort().reverse();
+
+    const PSEUDO_ELEMENTS = [
+        'after', 'backdrop', 'before', 'cue', 'cue-region', 'first-letter', 'first-line',
+        'grammar-error', 'marker', 'part', 'placeholder', 'selection', 'slotted', 'spelling-error'
+    ].sort().reverse();
+
+    const PSEUDO_SELECTORS = [...PSEUDO_CLASSES, ...PSEUDO_ELEMENTS].sort().reverse();
+
+    const ATTRIBUTES = [
+        'accent-color', 'align-content', 'align-items', 'align-self', 'alignment-baseline', 'all',
+        'animation', 'animation-delay', 'animation-direction', 'animation-duration',
+        'animation-fill-mode', 'animation-iteration-count', 'animation-name', 'animation-play-state',
+        'animation-timing-function', 'appearance', 'aspect-ratio', 'backdrop-filter',
+        'backface-visibility', 'background', 'background-attachment', 'background-blend-mode',
+        'background-clip', 'background-color', 'background-image', 'background-origin',
+        'background-position', 'background-repeat', 'background-size', 'block-size', 'border',
+        'border-block', 'border-block-color', 'border-block-end', 'border-block-start',
+        'border-bottom', 'border-bottom-color', 'border-bottom-left-radius',
+        'border-bottom-right-radius', 'border-bottom-style', 'border-bottom-width', 'border-collapse',
+        'border-color', 'border-image', 'border-inline', 'border-left', 'border-radius',
+        'border-right', 'border-spacing', 'border-style', 'border-top', 'border-width', 'bottom',
+        'box-decoration-break', 'box-shadow', 'box-sizing', 'break-after', 'break-before',
+        'break-inside', 'caption-side', 'caret-color', 'clear', 'clip', 'clip-path', 'color',
+        'column-count', 'column-fill', 'column-gap', 'column-rule', 'column-span', 'column-width',
+        'columns', 'contain', 'content', 'counter-increment', 'counter-reset', 'cursor', 'direction',
+        'display', 'empty-cells', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'flex', 'flex-basis',
+        'flex-direction', 'flex-flow', 'flex-grow', 'flex-shrink', 'flex-wrap', 'float', 'font',
+        'font-family', 'font-feature-settings', 'font-kerning', 'font-size', 'font-size-adjust',
+        'font-stretch', 'font-style', 'font-variant', 'font-weight', 'gap', 'grid', 'grid-area',
+        'grid-auto-columns', 'grid-auto-flow', 'grid-auto-rows', 'grid-column', 'grid-gap',
+        'grid-row', 'grid-template', 'grid-template-areas', 'grid-template-columns',
+        'grid-template-rows', 'height', 'hyphens', 'image-rendering', 'inline-size', 'inset',
+        'isolation', 'justify-content', 'justify-items', 'justify-self', 'left', 'letter-spacing',
+        'line-height', 'list-style', 'list-style-image', 'list-style-position', 'list-style-type',
+        'margin', 'margin-block', 'margin-bottom', 'margin-inline', 'margin-left', 'margin-right',
+        'margin-top', 'mask', 'mask-image', 'max-block-size', 'max-height', 'max-inline-size',
+        'max-width', 'min-block-size', 'min-height', 'min-inline-size', 'min-width', 'mix-blend-mode',
+        'object-fit', 'object-position', 'offset', 'opacity', 'order', 'orphans', 'outline',
+        'outline-color', 'outline-offset', 'outline-style', 'outline-width', 'overflow',
+        'overflow-anchor', 'overflow-wrap', 'overflow-x', 'overflow-y', 'padding', 'padding-block',
+        'padding-bottom', 'padding-inline', 'padding-left', 'padding-right', 'padding-top',
+        'perspective', 'perspective-origin', 'place-content', 'place-items', 'place-self',
+        'pointer-events', 'position', 'quotes', 'resize', 'right', 'rotate', 'row-gap', 'scale',
+        'scroll-behavior', 'scroll-margin', 'scroll-padding', 'scroll-snap-align', 'scroll-snap-type',
+        'shape-outside', 'stroke', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap',
+        'stroke-linejoin', 'stroke-width', 'tab-size', 'table-layout', 'text-align', 'text-align-last',
+        'text-decoration', 'text-decoration-color', 'text-decoration-line', 'text-decoration-style',
+        'text-indent', 'text-justify', 'text-orientation', 'text-overflow', 'text-rendering',
+        'text-shadow', 'text-transform', 'text-underline-position', 'top', 'touch-action', 'transform',
+        'transform-origin', 'transform-style', 'transition', 'transition-delay', 'transition-duration',
+        'transition-property', 'transition-timing-function', 'translate', 'unicode-bidi',
+        'user-select', 'vertical-align', 'visibility', 'white-space', 'widows', 'width', 'will-change',
+        'word-break', 'word-spacing', 'word-wrap', 'writing-mode', 'z-index', 'zoom'
+    ].sort().reverse();
+
+    return {
+        MODES: (hljs) => ({
+            IMPORTANT: {
+                scope: 'meta',
+                begin: '!important'
+            },
+            BLOCK_COMMENT: hljs.C_BLOCK_COMMENT_MODE,
+            HEXCOLOR: {
+                scope: 'number',
+                begin: /#(([0-9a-fA-F]{3,4})|(([0-9a-fA-F]{2}){3,4}))\b/
+            },
+            UNICODE_RANGE: {
+                scope: 'number',
+                begin: /\b[Uu]\+[0-9A-Fa-f][0-9A-Fa-f?]{0,4}(-[0-9A-Fa-f][0-9A-Fa-f]{0,4})?/
+            },
+            FUNCTION_DISPATCH: {
+                className: 'built_in',
+                begin: /[\w-]+(?=\()/
+            },
+            ATTRIBUTE_SELECTOR_MODE: {
+                scope: 'selector-attr',
+                begin: /\[/,
+                end: /\]/,
+                illegal: '$',
+                contains: [
+                    hljs.APOS_STRING_MODE,
+                    hljs.QUOTE_STRING_MODE
+                ]
+            },
+            CSS_NUMBER_MODE: {
+                scope: 'number',
+                begin: hljs.NUMBER_RE + '(' +
+                    '%|em|ex|ch|rem' +
+                    '|vw|vh|vmin|vmax' +
+                    '|cm|mm|in|pt|pc|px' +
+                    '|deg|grad|rad|turn' +
+                    '|s|ms' +
+                    '|Hz|kHz' +
+                    '|dpi|dpcm|dppx' +
+                    ')?',
+                relevance: 0
+            },
+            CSS_VARIABLE: {
+                className: 'attr',
+                begin: /--[A-Za-z_][A-Za-z0-9_-]*/
+            }
+        }),
+        TAGS,
+        MEDIA_FEATURES,
+        PSEUDO_CLASSES,
+        PSEUDO_ELEMENTS,
+        PSEUDO_SELECTORS,
+        ATTRIBUTES
+    };
+}
+
 // Create a mock hljs object for language definition execution
 function createMockHljs() {
     const regex = {
@@ -456,7 +611,7 @@ function generateMode(mode, indent = '') {
     }
 
     // Generate flags
-    if (mode.relevance !== undefined) {
+    if (mode.relevance !== undefined && mode.relevance !== null) {
         lines.push(`${indent}    mode.relevance = ${mode.relevance}`);
     }
     if (mode.endsParent) {
@@ -552,7 +707,7 @@ function generateVariantMode(mode, indent = '') {
     } else if (mode.className) {
         lines.push(`${indent}    mode.scope = .single("${mode.className}")`);
     }
-    if (mode.relevance !== undefined) {
+    if (mode.relevance !== undefined && mode.relevance !== null) {
         lines.push(`${indent}    mode.relevance = ${mode.relevance}`);
     }
     if (mode.keywords) {
@@ -694,6 +849,11 @@ async function loadLanguage(name) {
     // Handle imports - we need to mock them
     const imports = {};
 
+    // Check for CSS-shared import (used by less, scss, stylus)
+    if (code.includes('css-shared') || code.includes('./lib/css-shared')) {
+        imports.css = createCssSharedMock(hljs);
+    }
+
     // Check for ECMAScript import
     if (code.includes('ecmascript')) {
         // ECMAScript library values
@@ -713,11 +873,17 @@ async function loadLanguage(name) {
         imports.BUILT_INS = [...imports.BUILT_IN_GLOBALS, ...imports.TYPES, ...imports.ERROR_TYPES].join(' ');
     }
 
+    // Build import declarations - handle css specially since it has functions
+    const importDeclarations = Object.entries(imports)
+        .filter(([k]) => k !== 'css') // Handle css separately
+        .map(([k, v]) => `const ${k} = ${JSON.stringify(v)};`)
+        .join('\n');
+
     // Create a wrapper that extracts the default export
     const wrappedCode = `
-        (function(hljs, ECMAScript, imports) {
+        (function(hljs, ECMAScript, imports, css) {
             const regex = hljs.regex;
-            ${Object.entries(imports).map(([k, v]) => `const ${k} = ${JSON.stringify(v)};`).join('\n')}
+            ${importDeclarations}
 
             // The original function body
             ${code
@@ -729,7 +895,7 @@ async function loadLanguage(name) {
 
     try {
         const factory = vm.runInNewContext(wrappedCode, { console });
-        const langFn = factory(hljs, imports, imports);
+        const langFn = factory(hljs, imports, imports, imports.css);
         const lang = langFn(hljs);
         return lang;
     } catch (e) {
