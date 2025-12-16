@@ -16,6 +16,7 @@ public enum Languages {
         hljs.registerLanguage("apache", definition: apacheLanguage)
         hljs.registerLanguage("applescript", definition: applescriptLanguage)
         hljs.registerLanguage("arcade", definition: arcadeLanguage)
+        hljs.registerLanguage("arduino", definition: arduinoLanguage)
         hljs.registerLanguage("armasm", definition: armasmLanguage)
         hljs.registerLanguage("asciidoc", definition: asciidocLanguage)
         hljs.registerLanguage("aspectj", definition: aspectjLanguage)
@@ -36,6 +37,7 @@ public enum Languages {
         hljs.registerLanguage("clojure", definition: clojureLanguage)
         hljs.registerLanguage("clojure-repl", definition: clojure_replLanguage)
         hljs.registerLanguage("cmake", definition: cmakeLanguage)
+        hljs.registerLanguage("coffeescript", definition: coffeescriptLanguage)
         hljs.registerLanguage("coq", definition: coqLanguage)
         hljs.registerLanguage("cos", definition: cosLanguage)
         hljs.registerLanguage("cpp", definition: cppLanguage)
@@ -65,6 +67,7 @@ public enum Languages {
         hljs.registerLanguage("fix", definition: fixLanguage)
         hljs.registerLanguage("flix", definition: flixLanguage)
         hljs.registerLanguage("fortran", definition: fortranLanguage)
+        hljs.registerLanguage("fsharp", definition: fsharpLanguage)
         hljs.registerLanguage("gams", definition: gamsLanguage)
         hljs.registerLanguage("gauss", definition: gaussLanguage)
         hljs.registerLanguage("gcode", definition: gcodeLanguage)
@@ -77,12 +80,14 @@ public enum Languages {
         hljs.registerLanguage("graphql", definition: graphqlLanguage)
         hljs.registerLanguage("groovy", definition: groovyLanguage)
         hljs.registerLanguage("handlebars", definition: handlebarsLanguage)
+        hljs.registerLanguage("haml", definition: hamlLanguage)
         hljs.registerLanguage("haskell", definition: haskellLanguage)
         hljs.registerLanguage("haxe", definition: haxeLanguage)
         hljs.registerLanguage("hsp", definition: hspLanguage)
         hljs.registerLanguage("http", definition: httpLanguage)
         hljs.registerLanguage("hy", definition: hyLanguage)
         hljs.registerLanguage("inform7", definition: inform7Language)
+        hljs.registerLanguage("ini", definition: iniLanguage)
         hljs.registerLanguage("irpf90", definition: irpf90Language)
         hljs.registerLanguage("isbl", definition: isblLanguage)
         hljs.registerLanguage("java", definition: javaLanguage)
@@ -91,6 +96,7 @@ public enum Languages {
         hljs.registerLanguage("json", definition: jsonLanguage)
         hljs.registerLanguage("julia", definition: juliaLanguage)
         hljs.registerLanguage("julia-repl", definition: julia_replLanguage)
+        hljs.registerLanguage("kotlin", definition: kotlinLanguage)
         hljs.registerLanguage("lasso", definition: lassoLanguage)
         hljs.registerLanguage("latex", definition: latexLanguage)
         hljs.registerLanguage("ldif", definition: ldifLanguage)
@@ -99,10 +105,12 @@ public enum Languages {
         hljs.registerLanguage("lisp", definition: lispLanguage)
         hljs.registerLanguage("livecodeserver", definition: livecodeserverLanguage)
         hljs.registerLanguage("livescript", definition: livescriptLanguage)
+        hljs.registerLanguage("llvm", definition: llvmLanguage)
         hljs.registerLanguage("lsl", definition: lslLanguage)
         hljs.registerLanguage("lua", definition: luaLanguage)
         hljs.registerLanguage("makefile", definition: makefileLanguage)
         hljs.registerLanguage("markdown", definition: markdownLanguage)
+        hljs.registerLanguage("mathematica", definition: mathematicaLanguage)
         hljs.registerLanguage("matlab", definition: matlabLanguage)
         hljs.registerLanguage("maxima", definition: maximaLanguage)
         hljs.registerLanguage("mel", definition: melLanguage)
@@ -136,6 +144,7 @@ public enum Languages {
         hljs.registerLanguage("prolog", definition: prologLanguage)
         hljs.registerLanguage("properties", definition: propertiesLanguage)
         hljs.registerLanguage("protobuf", definition: protobufLanguage)
+        hljs.registerLanguage("powershell", definition: powershellLanguage)
         hljs.registerLanguage("puppet", definition: puppetLanguage)
         hljs.registerLanguage("purebasic", definition: purebasicLanguage)
         hljs.registerLanguage("python", definition: pythonLanguage)
@@ -176,11 +185,13 @@ public enum Languages {
         hljs.registerLanguage("twig", definition: twigLanguage)
         hljs.registerLanguage("typescript", definition: typescriptLanguage)
         hljs.registerLanguage("vala", definition: valaLanguage)
+        hljs.registerLanguage("vbnet", definition: vbnetLanguage)
         hljs.registerLanguage("vbscript", definition: vbscriptLanguage)
         hljs.registerLanguage("vbscript-html", definition: vbscript_htmlLanguage)
         hljs.registerLanguage("verilog", definition: verilogLanguage)
         hljs.registerLanguage("vhdl", definition: vhdlLanguage)
         hljs.registerLanguage("vim", definition: vimLanguage)
+        hljs.registerLanguage("wasm", definition: wasmLanguage)
         hljs.registerLanguage("wren", definition: wrenLanguage)
         hljs.registerLanguage("x86asm", definition: x86asmLanguage)
         hljs.registerLanguage("xl", definition: xlLanguage)
@@ -191,36 +202,36 @@ public enum Languages {
     }
 
     /// Get the count of available languages
-    public static var count: Int { 181 }
+    public static var count: Int { 192 }
 
     /// List of all available language names
     public static var all: [String] {
         [
             "1c", "abnf", "accesslog", "actionscript", "ada", "angelscript",
-            "apache", "applescript", "arcade", "armasm", "asciidoc", "aspectj",
+            "apache", "applescript", "arcade", "arduino", "armasm", "asciidoc", "aspectj",
             "autohotkey", "autoit", "avrasm", "awk", "axapta", "bash", "basic", "bnf",
             "brainfuck", "c", "cal", "capnproto", "ceylon", "clean", "clojure",
-            "clojure-repl", "cmake", "coq", "cos", "cpp", "crmsh", "crystal",
+            "clojure-repl", "cmake", "coffeescript", "coq", "cos", "cpp", "crmsh", "crystal",
             "csharp", "csp", "css", "d", "dart", "delphi", "diff", "django", "dns",
             "dockerfile", "dos", "dsconfig", "dts", "dust", "ebnf", "elixir",
             "elm", "erb", "erlang", "erlang-repl", "excel", "fix", "flix",
-            "fortran", "gams", "gauss", "gcode", "gherkin", "glsl", "gml", "go",
-            "golo", "gradle", "graphql", "groovy", "handlebars", "haskell",
-            "haxe", "hsp", "http", "hy", "inform7", "irpf90", "isbl", "java",
-            "javascript", "jboss-cli", "json", "julia", "julia-repl", "lasso",
-            "latex", "ldif", "leaf", "less", "lisp", "livecodeserver", "livescript", "lsl",
-            "lua", "makefile", "markdown", "matlab", "maxima", "mel", "mercury",
-            "mipsasm", "mizar", "mojolicious", "monkey", "moonscript", "n1ql",
-            "nestedtext", "nginx", "nim", "nix", "node-repl", "nsis", "objectivec",
+            "fortran", "fsharp", "gams", "gauss", "gcode", "gherkin", "glsl", "gml", "go",
+            "golo", "gradle", "graphql", "groovy", "handlebars", "haml", "haskell",
+            "haxe", "hsp", "http", "hy", "inform7", "ini", "irpf90", "isbl", "java",
+            "javascript", "jboss-cli", "json", "julia", "julia-repl", "kotlin", "lasso",
+            "latex", "ldif", "leaf", "less", "lisp", "livecodeserver", "livescript",
+            "llvm", "lsl", "lua", "makefile", "markdown", "mathematica", "matlab", "maxima",
+            "mel", "mercury", "mipsasm", "mizar", "mojolicious", "monkey", "moonscript",
+            "n1ql", "nestedtext", "nginx", "nim", "nix", "node-repl", "nsis", "objectivec",
             "ocaml", "openscad", "oxygene", "parser3", "perl", "pf", "pgsql",
-            "php", "php-template", "plaintext", "pony", "processing", "profile",
+            "php", "php-template", "plaintext", "pony", "powershell", "processing", "profile",
             "prolog", "properties", "protobuf", "puppet", "purebasic", "python",
             "python-repl", "q", "qml", "r", "reasonml", "rib", "roboconf",
             "routeros", "rsl", "ruby", "ruleslanguage", "rust", "sas", "scala",
             "scheme", "scilab", "scss", "shell", "smali", "smalltalk", "sml", "sqf", "sql",
             "stan", "stata", "step21", "stylus", "subunit", "swift", "taggerscript", "tap",
-            "tcl", "thrift", "tp", "twig", "typescript", "vala", "vbscript",
-            "vbscript-html", "verilog", "vhdl", "vim", "wren", "x86asm", "xl",
+            "tcl", "thrift", "tp", "twig", "typescript", "vala", "vbnet", "vbscript",
+            "vbscript-html", "verilog", "vhdl", "vim", "wasm", "wren", "x86asm", "xl",
             "xml", "xquery", "yaml", "zephir"
         ]
     }
